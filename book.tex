@@ -1,62 +1,59 @@
-\documentclass[leter]{amsart}
-\usepackage[pdftex]{geometry}
+\documentclass[10pt,landscape,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage[margin=0.2in]{geometry}
 
 \usepackage{listings}
-\usepackage{amssymb}
-\usepackage{amsmath}
 \usepackage{multicol}
 \usepackage{courier}
 \usepackage{fancyhdr}
-\usepackage{indentfirst}
-\usepackage{yhmath}
+\usepackage{titlesec}
 
-\lstset{language=C++}
-\lstset{columns=fullflexible}
-\lstset{basicstyle=\scriptsize\ttfamily}
-\lstset{showspaces=false}
+\usepackage{xcolor} % для цветов
 
-\geometry{landscape}
-\setlength{\topmargin}{-0.25in}
-\setlength{\oddsidemargin}{0in}
-\setlength{\evensidemargin}{0in}
-\setlength{\columnsep}{1in}
+\lstset{
+  language=C++,
+  columns=fullflexible,
+  basicstyle=\footnotesize\ttfamily,
+  showspaces=false,
+  aboveskip=0pt,
+  belowskip=0pt,
+  lineskip=-1pt,
+  breaklines=true,
+  frame=single,                % рамка вокруг кода
+  rulecolor=\color{black},     % цвет рамки
+  numbers=left,                % нумерация строк слева
+  numberstyle=\tiny\color{black}, % стиль номеров
+  numbersep=5pt,               % расстояние от кода до номеров
+  backgroundcolor=\color{gray!10}, % светло-серый фон
+}
+
+% Колонки
+\setlength{\columnsep}{0.5in}
 \setlength{\columnseprule}{0.2pt}
-\textwidth 9.5in
 
+% Заголовки компактнее
+\titlespacing*{\section}{0pt}{0.5ex}{0.5ex}
+\titlespacing*{\subsection}{0pt}{0.25ex}{0.25ex}
+
+% Хедеры
 \pagestyle{fancy}
 \lhead{Мяу-принцессы: ИТМО}
 \chead{}
 \rhead{\thepage}
-\lfoot{}
-\cfoot{}
-\rfoot{}
 
-\newcommand{\includecpp}[3]{
-  \begin{multicols}{2}
-    [\subsection{#1}\ ]
-    \lstinputlisting[language=c++]{#2/#3}
-  \end{multicols}
+% Макрос для вставки кода
+\newcommand{\includecpp}[3]{%
+  \subsection{#1}%
+  \lstinputlisting{#2/#3}%
 }
-
-\newcommand{\stirlingfirst}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
-\newcommand{\stirlingsecond}[2]{\genfrac{\{}{\}}{0pt}{}{#1}{#2}}
-\newcommand{\norm}[1]{\lVert#1\rVert}
 
 \begin{document}
 
-\begin{multicols}{1}
-  	\tableofcontents
-\end{multicols}
-
-\pagebreak
+\begin{multicols}{3}
 
 \section{Шаблон}
-
 \includecpp{Шаблон}{./algos}{template.cpp}
-
-\pagebreak
 
 \section{Структуры данных}
 
@@ -64,20 +61,14 @@
 \includecpp{ДД}{./algos}{treap.cpp}
 \includecpp{Неявное ДД}{./algos}{implicit_treap.cpp}
 
-\pagebreak
-
 \section{Строки}
 
 \includecpp{Строки}{./algos}{strings.cpp}
-
-\pagebreak
 
 \section{Деревья}
 
 \includecpp{lca}{./algos}{lca.cpp}
 \includecpp{hld}{./algos}{hld.cpp}
-
-\pagebreak
 
 \section{Матеша}
 
@@ -85,6 +76,6 @@
 \includecpp{Длинка и интмод}{./algos}{long_ar.cpp}
 \includecpp{Геома (old)}{./algos}{geometry.cpp}
 
-\pagebreak
+\end{multicols}
 
 \end{document}
