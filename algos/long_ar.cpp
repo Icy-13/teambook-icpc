@@ -1,7 +1,7 @@
 struct LongInt {
     inline static const int base = 1e8;
     inline static const int base_len = 8;
-    deque <int> number;
+    vector <int> number;
     bool negative = 0;
 
     size_t size() const {
@@ -36,111 +36,99 @@ struct LongInt {
         return negative;
     }
 
-    LongInt& operator+=(const LongInt& other) {
-        LongInt rhs = other.copy();
-        LongInt lhs = this->copy();
-        normalize(lhs, rhs);
-        if (lhs.is_negative() && !rhs.is_negative()) {
-            lhs.negative = 0;
-            rhs -= lhs;
-            swap(*this, rhs);
+    LongInt& operator+=(LongInt& other) {
+        if (is_negative() && !other.is_negative()) {
+            negative = 0;
+            other -= *this;
+            swap(other);
             return *this;
         }
-        if (!lhs.is_negative() && rhs.is_negative()) {
-            rhs.negative = 0;
-            lhs -= rhs;
-            swap(*this, lhs);
+        if (!is_negative() && other.is_negative()) {
+            other.negative = 0;
+            *this -= other;
             return *this;
         }
-        deque <int> new_number(lhs.size());
         int carry = 0;
-        for (size_t i = 0; i < lhs.size(); i++) {
-            ll temp = 1ll * lhs.number[i] + rhs.number[i] + carry;
-            new_number[i] = temp % base;
+        number.resize(max(size(), other.size()));
+        for (size_t i = 0; i < max(size(), other.size()); i++) {
+            ll temp = 1ll * get(i) + other.get(i) + carry;
+            number[i] = temp % base;
             carry = temp / base;
         }
         if (carry) {
-            new_number.push_back(carry);
+            number.push_back(carry);
         }
-        std::swap(number, new_number);
         return *this;
     }
 
-    LongInt& operator-=(const LongInt& other) {
-        LongInt rhs = other.copy();
-        LongInt lhs = this->copy();
-        normalize(lhs, rhs);
-        if (lhs.is_negative() && !rhs.is_negative()) {
-            rhs.negative = 1;
-            rhs += lhs;
-            swap(*this, rhs);
+    LongInt& operator-=(LongInt& other) {
+        if (is_negative() && !other.is_negative()) {
+            other.negative = 1;
+            other += *this;
+            swap(other);
             return *this;
         }
-        if (!lhs.is_negative() && rhs.is_negative()) {
-            rhs.negative = 0;
-            lhs += rhs;
-            swap(*this, lhs);
+        if (!is_negative() && other.is_negative()) {
+            other.negative = 0;
+            *this += other;
             return *this;
         }
-        if (lhs.is_negative() && rhs.is_negative()) {
-            rhs.negative = 0;
-            lhs.negative = 0;
-            swap(lhs, rhs);
+        if (is_negative() && other.is_negative()) {
+            negative = 0;
+            other.negative = 0;
+            swap(other);
         }
-        negative = (lhs < rhs);
-        if (negative) {
-            swap(lhs, rhs);
+        if (*this < other) {
+            swap(other);
+            negative = 1;
         }
-        deque <int> new_number(lhs.size());
         int carry = 0;
-        for (size_t i = 0; i < lhs.size(); i++) {
-            ll temp = 1ll * lhs.number[i] - carry - rhs.number[i];
+        for (size_t i = 0; i < size(); i++) {
+            ll temp = 1ll * get(i) - carry - other.get(i);
             carry = 0;
             if (temp < 0) {
                 carry = 1;
                 temp += base;
             }
-            new_number[i] = temp;
+            number[i] = temp;
         }
-        while (new_number.size() > 1 && !new_number.back()) {
-            new_number.pop_back();
+        while (size() > 1 && !number.back()) {
+            number.pop_back();
         }
-        std::swap(number, new_number);
         return *this;
     }
 
     LongInt& operator*=(const int& other) {
-        negative = (*this).is_negative() ^ (other < 0);
-        deque <int> new_number(size());
+        negative ^= (other < 0);
         int carry = 0;
         for (size_t i = 0; i < size(); i++) {
-            ll temp = 1ll * number[i] * other + carry;
-            new_number[i] = temp % base;
+            ll temp = 1ll * get(i) * other + carry;
+            number[i] = temp % base;
             carry = temp / base;
         }
         if (carry) {
-            new_number.push_back(carry);
+            number.push_back(carry);
         }
-        while (new_number.size() > 1 && !new_number.back()) {
-            new_number.pop_back();
+        while (size() > 1 && !number.back()) {
+            number.pop_back();
         }
-        std::swap(number, new_number);
         return *this;
     }
 
-    LongInt& operator*=(const LongInt& other) {
-        negative = (*this).is_negative() ^ other.is_negative();
-        LongInt rhs = other.copy();
-        LongInt lhs = this->copy();
-        if (lhs.number.size() < rhs.number.size()) {
-            swap(lhs, rhs);
+    LongInt& operator*=(LongInt& other) {
+        negative ^= other.is_negative();
+        if (size() < other.size()) {
+            swap(other);
         }
         LongInt res(0);
-        for (int i = 0; i < rhs.number.size(); i++) {
-            LongInt temp = lhs * rhs.number[i];
-            for (int j = 0; j < i; j++) {
-                temp.number.push_front(0);
+        for (int i = 0; i < other.size(); i++) {
+            LongInt temp = (*this) * other.get(i);
+            vector <int> new_number;
+            new_number.assign(i, 0);
+            for (int i = 0; i < temp.size(); i++) {
+                new_number.push_back(temp.get(i));
             }
+            std::swap(temp.number, new_number);
             res += temp;
         }
         swap(res);
@@ -162,17 +150,16 @@ struct LongInt {
     }
 
     pair <LongInt, int> div_mod(LongInt& left, int rhs) {
-        LongInt lhs = left.copy();
         int carry = 0;
-        for (int i = lhs.number.size() - 1; i >= 0; i--) {
-            ll temp = lhs.number[i] + 1ll * carry * base;
-	        lhs.number[i] = temp / rhs;
+        for (int i = size() - 1; i >= 0; i--) {
+            ll temp = get(i) + 1ll * carry * base;
+	        number[i] = temp / rhs;
 	        carry = temp % rhs;
         }
-        while (lhs.number.size() > 1 && !lhs.number.back()) {
-            lhs.number.pop_back();
+        while (size() > 1 && !number.back()) {
+            number.pop_back();
         }
-        return make_pair(lhs, carry);
+        return make_pair(*this, carry);
     }
 
     void swap(LongInt& other) {
@@ -184,13 +171,13 @@ struct LongInt {
         lhs.swap(rhs);
     }
 
-    friend bool operator<(const LongInt& left, const LongInt& right) {
+    friend bool operator<(LongInt& left, LongInt& right) {
         if (left.negative && !right.negative) return true;
         if (!left.negative && right.negative) return false;
         int i = max(left.size(), right.size()) - 1;
         while (i >= 0) {
-            int l = (i < left.size()) ? left.number[i] : 0;
-            int r = (i < right.size()) ? right.number[i] : 0;
+            int l = left.get(i);
+            int r = right.get(i);
             if (left.negative) {
                 if (l > r) return true;
                 if (l < r) return false;
@@ -203,12 +190,12 @@ struct LongInt {
         return 0;
     }
 
-    friend bool operator==(const LongInt& left, const LongInt& right) {
+    friend bool operator==(LongInt& left, LongInt& right) {
         if (left.negative != right.negative) return false;
         int i = max(left.size(), right.size()) - 1;
         while (i >= 0) {
-            int l = (i < left.size()) ? left.number[i] : 0;
-            int r = (i < right.size()) ? right.number[i] : 0;
+            int l = left.get(i);
+            int r = right.get(i);
             if (l < r) {
                 return 0;
             } else if (l > r) {
@@ -219,37 +206,37 @@ struct LongInt {
         return 1;
     }
 
-    friend LongInt operator+(const LongInt& left, const LongInt& right) {
+    friend LongInt operator+(LongInt& left, LongInt& right) {
         LongInt result = left;
         result += right;
         return result;
     }
 
-    friend LongInt operator-(const LongInt& left, const LongInt& right) {
+    friend LongInt operator-(LongInt& left, LongInt& right) {
         LongInt result = left;
         result -= right;
         return result;
     }
 
-    friend LongInt operator*(const LongInt& left, const int& right) {
+    friend LongInt operator*(LongInt& left, const int& right) {
         LongInt result = left;
         result *= right;
         return result;
     }
 
-    friend LongInt operator*(const LongInt& left, const LongInt& right) {
+    friend LongInt operator*(LongInt& left, LongInt& right) {
         LongInt result = left;
         result *= right;
         return result;
     }
 
-    friend LongInt operator/(const LongInt& left, const int& right) {
+    friend LongInt operator/(LongInt& left, const int& right) {
         LongInt result = left;
         result /= right;
         return result;
     }
 
-    friend LongInt operator%(const LongInt& left, const int& right) {
+    friend LongInt operator%(LongInt& left, const int& right) {
         LongInt result = left;
         result %= right;
         return result;
@@ -276,6 +263,13 @@ struct LongInt {
         return os;
     }
 
+    friend istream& operator>>(istream& is, LongInt& num) {
+        string s;
+        is >> s;
+        num = LongInt(s);
+        return is;
+    }
+
     private:
         void normalize(LongInt& left, LongInt& right) {
             while (left.size() > right.size()) {
@@ -284,5 +278,9 @@ struct LongInt {
             while (left.size() < right.size()) {
                 left.number.push_back(0);
             }
+        }
+
+        int get(int index) const {
+            return (index < size()) ? number[index] : 0;
         }
 };
