@@ -2,5 +2,8 @@
 
 *.exe
 
-book*
-!book.tex
+*.aux
+*.log
+*.synctex.gz
+*.toc
+*.pdf

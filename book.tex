@@ -43,38 +43,39 @@
 \rhead{\thepage}
 
 % Макрос для вставки кода
-\newcommand{\includecpp}[3]{%
+\newcommand{\includecpp}[2]{%
   \subsection{#1}%
-  \lstinputlisting{#2/#3}%
+  \lstinputlisting{#2}%
 }
-
 \begin{document}
 
 \begin{multicols}{3}
 
+\section{Аргументы и факты}
+% \includestandalone{math}
+
 \section{Шаблон}
-\includecpp{Шаблон}{./algos}{template.cpp}
+\includecpp{Шаблон}{./algos/template.cpp}
 
 \section{Структуры данных}
 
-\includecpp{СНМчик}{./algos}{dsu.cpp}
-\includecpp{ДД}{./algos}{treap.cpp}
-\includecpp{Неявное ДД}{./algos}{implicit_treap.cpp}
+\includecpp{ДД}{./algos/treap.cpp}
+\includecpp{Неявное ДД}{./algos/implicit_treap.cpp}
 
 \section{Строки}
 
-\includecpp{Строки}{./algos}{strings.cpp}
+\includecpp{Строки}{./algos/strings.cpp}
 
 \section{Деревья}
 
-\includecpp{lca}{./algos}{lca.cpp}
-\includecpp{hld}{./algos}{hld.cpp}
+\includecpp{lca}{./algos/lca.cpp}
+\includecpp{hld}{./algos/hld.cpp}
 
 \section{Матеша}
 
-\includecpp{Алгебра}{./algos}{algebra.cpp}
-\includecpp{Длинка и интмод}{./algos}{long_ar.cpp}
-\includecpp{Геома (old)}{./algos}{geometry.cpp}
+\includecpp{Алгебра}{./algos/algebra.cpp}
+\includecpp{Длинка и интмод}{./algos/long_ar.cpp}
+\includecpp{Геома (old)}{./algos/geometry.cpp}
 
 \end{multicols}
 

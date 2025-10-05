@@ -1,0 +1,73 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+
+\begin{document}
+
+\section*{Некоторые математические факты}
+
+\begin{enumerate}
+    \item \textbf{Функция Мёбиуса.}  
+    \[
+        \mu(n) =
+        \begin{cases}
+            1, & n = 1, \\
+            (-1)^k, & n = p_1 p_2 \cdots p_k \ \text{--- произведение $k$ различных простых}, \\
+            0, & n \ \text{делится на квадрат простого}.
+        \end{cases}
+    \]  
+    \textbf{Обращение Мёбиуса:} если 
+    \[
+        g(n) = \sum_{d \mid n} f(d),
+    \]
+    то
+    \[
+        f(n) = \sum_{d \mid n} \mu(d)\, g\!\left(\tfrac{n}{d}\right).
+    \]
+
+    \item \textbf{Лемма Бёрнсайда.} Чтобы посчитать классы эквивалентности, нужно для каждой валидной перестановки посчитать количество неподвижных точек, сложить это, и поделить на количество перестановок:
+    \[
+        Classes = \frac{1}{|G|} \sum_{g \in G} | \mathrm{Fix}(g) |.
+    \]  
+
+    \textbf{Теорема Пойя.} Если каждый элемент независимо от других принимает одно из $k$ состояний, то:
+    \[
+        Classes= \frac{1}{|G|} \sum_{g \in G} k^{c(g)},
+    \]
+    где $c(g)$ --- число циклов в перестановке $g$.
+
+    \item \textbf{Лемма Холла.} Для двудольного графа $G=(X,Y,E)$ существует совершенное паросочетание $\Leftrightarrow$ для любого $S \subseteq X$ выполняется
+    \[
+        |N(S)| \geq |S|.
+    \]
+
+    \item \textbf{Длина кривой.} Пусть $\gamma(t) = (x(t), y(t))$, $t \in [a,b]$, гладкая кривая. Тогда её длина:
+    \[
+        L = \int_a^b \sqrt{ (x'(t))^2 + (y'(t))^2 } \, dt.
+    \]
+
+    \item \textbf{Формула Симпсона.} Для численного интегрирования:
+    \[
+        \int_a^b f(x)\, dx \approx \frac{b-a}{6}\Big( f(a) + 4 f\!\left(\tfrac{a+b}{2}\right) + f(b) \Big).
+    \]
+
+    \item \textbf{Числа Каталана.}  
+    \[
+        C_n = \frac{1}{n+1}\binom{2n}{n}, \quad C_{n+1} = \sum_{k=0}^n C_k C_{n-k}.
+    \]
+
+    \textbf{Числа Стирлинга второго рода.}  
+    \[
+        \left\{ {n \atop k} \right\} = k \left\{ {n-1 \atop k} \right\} + \left\{ {n-1 \atop k-1} \right\}, \quad 
+        \left\{ {0 \atop 0} \right\} = 1.
+    \]
+
+    \textbf{Числа Эйлера (первого рода).}  
+    \[
+        A(n,k) = (n-k)\, A(n-1, k-1) + (k+1)\, A(n-1,k), \quad A(1,0)=1.
+    \]
+
+\end{enumerate}
+
+\end{document}
