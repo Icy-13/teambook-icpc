@@ -10,6 +10,7 @@
 \usepackage{titlesec}
 
 \usepackage{xcolor} % для цветов
+\usepackage{amsmath, amssymb, amsthm} % для математических формул
 
 \lstset{
   language=C++,
@@ -51,9 +52,6 @@
 
 \begin{multicols}{3}
 
-\section{Аргументы и факты}
-% \includestandalone{math}
-
 \section{Шаблон}
 \includecpp{Шаблон}{./algos/template.cpp}
 
@@ -76,7 +74,10 @@
 \includecpp{Алгебра}{./algos/algebra.cpp}
 \includecpp{Длинка и интмод}{./algos/long_ar.cpp}
 \includecpp{Геома (old)}{./algos/geometry.cpp}
-
 \end{multicols}
+
+\section{Аргументы и факты}
+\input{math.tex}
+
 
 \end{document}

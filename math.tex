@@ -1,12 +1,3 @@
-\documentclass[10pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
-\usepackage{amsmath, amssymb, amsthm}
-
-\begin{document}
-
-\section*{Некоторые математические факты}
-
 \begin{enumerate}
     \item \textbf{Функция Мёбиуса.}  
     \[
@@ -52,22 +43,33 @@
         \int_a^b f(x)\, dx \approx \frac{b-a}{6}\Big( f(a) + 4 f\!\left(\tfrac{a+b}{2}\right) + f(b) \Big).
     \]
 
-    \item \textbf{Числа Каталана.}  
+    \item \textbf{Числа Каталана.} 1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862... $a(n)$ is odd if and only if $n=2^{k}-1$
     \[
         C_n = \frac{1}{n+1}\binom{2n}{n}, \quad C_{n+1} = \sum_{k=0}^n C_k C_{n-k}.
     \]
+    
+    \item \textbf{Числа Стирлинга первого рода.} Количество перестановок порядка $n$ с $k$ циклами
+    \[
+        \left[ {n \atop k} \right] = \left[ {n-1 \atop k-1} \right] + (n-1) \cdot \left[ {n-1 \atop k} \right], \quad 
+        \left[ {0 \atop 0} \right] = 1 \quad
+        \left[ {n \atop 0} \right] = 0 \quad
+        \left[ {0 \atop k} \right] = 0
+    \]
 
-    \textbf{Числа Стирлинга второго рода.}  
+    \item \textbf{Числа Стирлинга второго рода.} Количество способов разбить $n$-элементное множество на $k$ непустых подмножеств
     \[
         \left\{ {n \atop k} \right\} = k \left\{ {n-1 \atop k} \right\} + \left\{ {n-1 \atop k-1} \right\}, \quad 
         \left\{ {0 \atop 0} \right\} = 1.
     \]
 
-    \textbf{Числа Эйлера (первого рода).}  
+    \item \textbf{Числа Эйлера (первого рода).} Количество перестановок порядка $n$ с $k$ подъемами
     \[
         A(n,k) = (n-k)\, A(n-1, k-1) + (k+1)\, A(n-1,k), \quad A(1,0)=1.
     \]
 
-\end{enumerate}
+    \item \textbf{Количество различных подстрок}  
+    \[
+        ans = \frac{n^2 + n}{2} - \sum_{i=0}^{n-2} lcp[i]
+    \]
 
-\end{document}
+\end{enumerate}
