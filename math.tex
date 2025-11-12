@@ -17,6 +17,10 @@
         f(n) = \sum_{d \mid n} \mu(d)\, g\!\left(\tfrac{n}{d}\right).
     \]
 
+    $\sum_{d|n} \mu(d) = \mathbf{I}(n = 1)$ индикатор что $n=1$. Можно проверять предикаты
+
+    Посчитаем пары взаимно-простых в $[1, n]$: $\sum_{i,j=1}^{n}[gcd(i, j)=1] = \sum_{i,j=1}^{n}\sum_{d|gcd(i, j)}\mu(d)= \sum_{i,j=1}^{n}\sum_{d=1}^{n}[d|gcd(i, j)]\mu(d) = \sum_{i,j=1}^{n}\sum_{d=1}^{n} [d|i][d|j]\mu(d) = \sum_{d=1}^{n}\mu(d) (\lfloor \frac{n}{d} \rfloor)^2$
+
     \item \textbf{Лемма Бёрнсайда.} Чтобы посчитать классы эквивалентности, нужно для каждой валидной перестановки посчитать количество неподвижных точек, сложить это, и поделить на количество перестановок:
     \[
         Classes = \frac{1}{|G|} \sum_{g \in G} | \mathrm{Fix}(g) |.
@@ -74,10 +78,8 @@
     \]
 
     \item \textbf{Цепи Маркова} TODO
-    \item \textbf{Теорема Эйлера}
-    \[
-        a^{\phi(m)} \equiv 1 (mod \ m)
-    \]
+    \item \textbf{Функция Эйлера} \\
+    $a^{\phi(m)} \equiv 1 (mod \, m) \quad a^{n} \equiv a^{n \, mod \, \phi(m)} (mod \, m) \quad \sum_{d|n} \phi(d) = n$
 
     \item \textbf{Количество различных подстрок}  
     \[
