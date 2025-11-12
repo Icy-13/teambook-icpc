@@ -3,7 +3,6 @@
     \[
         \mu(n) =
         \begin{cases}
-            1, & n = 1, \\
             (-1)^k, & n = p_1 p_2 \cdots p_k \ \text{--- произведение $k$ различных простых}, \\
             0, & n \ \text{делится на квадрат простого}.
         \end{cases}
@@ -19,7 +18,12 @@
 
     $\sum_{d|n} \mu(d) = \mathbf{I}(n = 1)$ индикатор что $n=1$. Можно проверять предикаты
 
-    Посчитаем пары взаимно-простых в $[1, n]$: $\sum_{i,j=1}^{n}[gcd(i, j)=1] = \sum_{i,j=1}^{n}\sum_{d|gcd(i, j)}\mu(d)= \sum_{i,j=1}^{n}\sum_{d=1}^{n}[d|gcd(i, j)]\mu(d) = \sum_{i,j=1}^{n}\sum_{d=1}^{n} [d|i][d|j]\mu(d) = \sum_{d=1}^{n}\mu(d) (\lfloor \frac{n}{d} \rfloor)^2$
+    Посчитаем пары взаимно-простых в $[1, n]$: $\sum_{i,j=1}^{n}[gcd(i, j)=1] = \sum_{i,j=1}^{n}\sum_{d|gcd(i, j)}\mu(d)=$ 
+    
+    $\sum_{i,j=1}^{n}\sum_{d=1}^{n}[d|gcd(i, j)]\mu(d) =$
+    $ \sum_{i,j=1}^{n}\sum_{d=1}^{n} [d|i][d|j]\mu(d) =$ 
+    
+    $\sum_{d=1}^{n}\mu(d) (\lfloor \frac{n}{d} \rfloor)^2$
 
     \item \textbf{Лемма Бёрнсайда.} Чтобы посчитать классы эквивалентности, нужно для каждой валидной перестановки посчитать количество неподвижных точек, сложить это, и поделить на количество перестановок:
     \[
@@ -49,26 +53,24 @@
 
     \item \textbf{Числа Каталана.} 1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862... $a(n)$ is odd if and only if $n=2^{k}-1$
     \[
-        C_n = \frac{1}{n+1}\binom{2n}{n}, \quad C_{n+1} = \sum_{k=0}^n C_k C_{n-k}.
+        C_n = \frac{1}{n+1}\binom{2n}{n}, \, C_{n+1} = \sum_{k=0}^n C_k C_{n-k}.
     \]
     
     \item \textbf{Числа Стирлинга первого рода.} Количество перестановок порядка $n$ с $k$ циклами
     \[
-        \left[ {n \atop k} \right] = \left[ {n-1 \atop k-1} \right] + (n-1) \cdot \left[ {n-1 \atop k} \right], \quad 
-        \left[ {0 \atop 0} \right] = 1 \quad
-        \left[ {n \atop 0} \right] = 0 \quad
-        \left[ {0 \atop k} \right] = 0
+        \left[ {n \atop k} \right] = \left[ {n-1 \atop k-1} \right] + (n-1) \cdot \left[ {n-1 \atop k} \right], \, 
+        \left[ {0 \atop 0} \right] = 1
     \]
 
     \item \textbf{Числа Стирлинга второго рода.} Количество способов разбить $n$-элементное множество на $k$ непустых подмножеств
     \[
-        \left\{ {n \atop k} \right\} = k \left\{ {n-1 \atop k} \right\} + \left\{ {n-1 \atop k-1} \right\}, \quad 
+        \left\{ {n \atop k} \right\} = k \left\{ {n-1 \atop k} \right\} + \left\{ {n-1 \atop k-1} \right\}, \, 
         \left\{ {0 \atop 0} \right\} = 1.
     \]
 
-    \item \textbf{Числа Эйлера (первого рода).} Количество перестановок порядка $n$ с $k$ подъемами
+    \item \textbf{Числа Эйлера (первого рода).} Количество перестановок порядка $n$ с $k$ подъемами. $A(0, 1)=1$
     \[
-        A(n,k) = (n-k)\, A(n-1, k-1) + (k+1)\, A(n-1,k), \quad A(1,0)=1.
+        A(n,k) = (n-k)A(n-1, k-1) + (k+1)A(n-1,k)
     \]
 
     \item \textbf{Числа Белла} Количество способов разбиения множества из $n$ элементов на подмножества. Сумма чисел Стирлинга второго рода. 1, 1, 2, 5, 15, 52, 203, 877, 4140... 
@@ -78,8 +80,8 @@
     \]
 
     \item \textbf{Цепи Маркова} TODO
-    \item \textbf{Функция Эйлера} \\
-    $a^{\phi(m)} \equiv 1 (mod \, m) \quad a^{n} \equiv a^{n \, mod \, \phi(m)} (mod \, m) \quad \sum_{d|n} \phi(d) = n$
+    \item \textbf{Функция Эйлера} $a^{\phi(m)} \equiv 1 (mod \, m)$ \\
+    $ a^{n} \equiv a^{n \, mod \, \phi(m)} (mod \, m) \quad \sum_{d|n} \phi(d) = n$
 
     \item \textbf{Количество различных подстрок}  
     \[

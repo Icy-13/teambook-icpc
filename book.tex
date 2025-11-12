@@ -1,13 +1,14 @@
-\documentclass[10pt,landscape,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
-\usepackage[margin=0.2in]{geometry}
+\usepackage[top=0.3in,bottom=0.3in,left=0.3in,right=0.3in,headsep=0.1in]{geometry}
 
 \usepackage{listings}
 \usepackage{multicol}
 \usepackage{courier}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+\usepackage{lastpage}
 
 \usepackage{xcolor} % для цветов
 \usepackage{amsmath, amssymb, amsthm} % для математических формул
@@ -39,9 +40,11 @@
 
 % Хедеры
 \pagestyle{fancy}
-\lhead{Мяу-принцессы: ИТМО}
-\chead{}
-\rhead{\thepage}
+\fancyhf{} % Clear all headers and footers
+\fancyhead[L]{ITMO University: Kalugin, Markina, Zorin}
+\fancyhead[R]{Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} % Line under header
+\setlength{\headheight}{14pt} % Adjust header height
 
 % Макрос для вставки кода
 \newcommand{\includecpp}[2]{%
