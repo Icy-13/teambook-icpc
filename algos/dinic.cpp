@@ -1,35 +1,21 @@
-///Дан орграф, найти два непересекающихся по ребрам пути из s в t, вывести вершины найденных путей.
-
-#pragma GCC optimize("Ofast")
-#include <bits/stdc++.h>
-#define int long long
-#define pii pair <int, int>
-#define fi first
-#define se second
-#define pb push_back
-#define mp make_pair
-
-using namespace std;
-
+// Given an orgraph, find two non-intersecting edge-pathes from s to to and print out verticies of those paths
 const int INF = 2e14;
-
 struct edge {
     int idx;
     int to;
     int flow;
     int max_flow;
     int rev_index;
-
     edge(int idx, int to, int flow, int max_flow, int rev_index)
         : idx(idx), to(to), flow(flow), max_flow(max_flow), rev_index(rev_index) {}
 };
 
-pair <vector <vector <edge> >, bool> bfs(vector <vector <edge> > &g, int s, int t) {
+pair<vector<vector<edge> >, bool> bfs(vector<vector<edge> >& g, int s, int t) {
     int n = g.size();
-    vector <int> dist(n, INF);
-    vector <vector <edge> > new_graph(n);
+    vector<int> dist(n, INF);
+    vector<vector<edge> > new_graph(n);
     dist[s] = 0;
-    queue <int> q;
+    queue<int> q;
     q.push(s);
     while (!q.empty()) {
         int to = q.front();
@@ -50,13 +36,9 @@ pair <vector <vector <edge> >, bool> bfs(vector <vector <edge> > &g, int s, int 
     return mp(new_graph, res);
 }
 
-int dfs(int s, vector <vector <edge> > &g, int t, vector <int> &ptr, int flow) {
-    if (flow == 0) {
-        return 0;
-    }
-    if (s == t) {
-        return flow;
-    }
+int dfs(int s, vector<vector<edge> >& g, int t, vector<int>& ptr, int flow) {
+    if (flow == 0) return 0;
+    if (s == t) return flow;
     for (; ptr[s] < g[s].size(); ptr[s]++) {
         int i = ptr[s];
         int pushed = dfs(g[s][i].to, g, t, ptr, min(flow, g[s][i].max_flow - g[s][i].flow));
@@ -68,23 +50,23 @@ int dfs(int s, vector <vector <edge> > &g, int t, vector <int> &ptr, int flow) {
     return 0;
 }
 
-void do_dfs(vector <vector <edge> > &g, int s, int t) {
-    vector <int> ptr(g.size(), 0);
+void do_dfs(vector<vector<edge> >& g, int s, int t) {
+    vector<int> ptr(g.size(), 0);
     int pushed = 0;
     do {
         pushed = dfs(s, g, t, ptr, INF);
     } while (pushed > 0);
 }
 
-vector <vector <edge> > dinic(vector <vector <edge> > &g, int s, int t) {
+vector<vector<edge> > dinic(vector<vector<edge> >& g, int s, int t) {
     int n = g.size();
     while (true) {
-        pair<vector <vector <edge> >, bool> g2 = bfs(g, s, t);
+        pair<vector<vector<edge> >, bool> g2 = bfs(g, s, t);
         if (g2.se == 0) {
             return g;
         }
         do_dfs(g2.fi, s, t);
-        vector <int> ptr(n, 0);
+        vector<int> ptr(n, 0);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < g2.fi[i].size(); j++) {
                 int from = i;
@@ -101,45 +83,39 @@ vector <vector <edge> > dinic(vector <vector <edge> > &g, int s, int t) {
     }
 }
 
-signed main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    cout.tie(NULL);
+void solve() {
     int n, m, s, t;
     cin >> n >> m >> s >> t;
-    s--; t--;
-    vector <vector <edge> > g(n);
+    s--;
+    t--;
+    vector<vector<edge> > g(n);
     int index = 1;
     for (int i = 0; i < m; i++) {
         int x, y;
         cin >> x >> y;
-        x--; y--;
+        x--;
+        y--;
         g[x].pb(edge(index++, y, 0, 1, g[y].size()));
         g[y].pb(edge(-index, x, 0, 0, g[x].size() - 1));
     }
-
-    vector <vector <edge> > f = dinic(g, s, t);
-
+    vector<vector<edge> > f = dinic(g, s, t);
     int flow = 0;
     for (int j = 0; j < f[s].size(); j++) {
         if (f[s][j].idx > 0) {
             flow += f[s][j].flow;
         }
     }
-
     if (flow < 2) {
         cout << "NO";
-        return 0;
+        return;
     }
-
     cout << "YES\n";
-
-    vector <vector<int> > path(2);
+    vector<vector<int> > path(2);
     for (int i = 0; i < 2; i++) {
         int v = s;
         while (v != t) {
             path[i].push_back(v);
-            for (auto &e : f[v]) {
+            for (auto& e : f[v]) {
                 if (e.flow == 1) {
                     e.flow = 0;
                     v = e.to;
@@ -149,13 +125,10 @@ signed main() {
         }
         path[i].push_back(t);
     }
-
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < path[i].size(); j++) {
             cout << path[i][j] + 1 << ' ';
         }
         cout << "\n";
     }
-
-    return 0;
 }
