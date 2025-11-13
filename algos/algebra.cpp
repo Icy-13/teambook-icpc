@@ -62,3 +62,62 @@ bool MillerRabin(uint64_t n) {  // returns true if n is prime, else returns fals
     }
     return true;
 }
+
+// NTT
+const int mod = 998244353;     // mod = c*2^k + 1, mod is prime
+const int root = 31;           // => g^c - 2^k root of unity, g is a primitive root
+const int root_1 = 128805723;  // inverse of root modulo mod
+const int root_pw = 1 << 23;   // 2^k from (mod = c*2^k + 1)
+
+int inverse(int n, int mod) {
+    long long result = 1;
+    long long base = n % mod;
+    int p = mod - 2;
+    while (p) {
+        if (p & 1) result = result * base % mod;
+        base = base * base % mod;
+        p >>= 1;
+    }
+    return (int)result;
+}
+
+void ntt(vector<int>& a, bool invert) {
+    int n = a.size();
+    for (int i = 1, j = 0; i < n; i++) {
+        int bit = n >> 1;
+        for (; j & bit; bit >>= 1) j ^= bit;  // mask can be precomputed
+        j ^= bit;
+        if (i < j) swap(a[i], a[j]);
+    }
+    for (int len = 2; len <= n; len <<= 1) {
+        int wlen = invert ? root_1 : root;
+        for (int i = len; i < root_pw; i <<= 1) wlen = (int)(1LL * wlen * wlen % mod);
+        for (int i = 0; i < n; i += len) {
+            int w = 1;
+            for (int j = 0; j < len / 2; j++) {
+                int u = a[i + j], v = (int)(1LL * a[i + j + len / 2] * w % mod);
+                a[i + j] = u + v < mod ? u + v : u + v - mod;
+                a[i + j + len / 2] = u - v >= 0 ? u - v : u - v + mod;
+                w = (int)(1LL * w * wlen % mod);
+            }
+        }
+    }
+    if (invert) {
+        int n_1 = inverse(n, mod);  // modulo inverse of n, can be precomputed
+        for (int& x : a) x = (int)(1LL * x * n_1 % mod);
+    }
+}
+
+vector<int> multiply(vector<int> const& a, vector<int> const& b) {
+    vector<int> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+    int n = 1;
+    while (n < a.size() + b.size()) n <<= 1;
+    fa.resize(n);
+    fb.resize(n);
+    ntt(fa, false);
+    ntt(fb, false);
+    for (int i = 0; i < n; i++) fa[i] = fa[i] * 1LL * fb[i] % mod;
+    ntt(fa, true);
+    return fa;
+}
+
