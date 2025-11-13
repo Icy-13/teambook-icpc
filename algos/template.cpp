@@ -3,42 +3,9 @@
 // #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("avx2,sse4,fma,bmi,bmi2,popcnt,lzcnt,abm")
 
-using namespace std;
-
-using uint = unsigned int;
-using ll = long long;
-using ull = unsigned long long;
-using dbl = double;
-using ld = long double;
-using pii = pair<int, int>;
-using pll = pair<ll, ll>;
-using pdd = pair<dbl, dbl>;
-using pld = pair<ld, ld>;
-
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
-// using namespace __gnu_pbds;
-// typedef tree<int, null_type, less<>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-
-#define ft first
-#define sc second
-#define pb push_back
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
-
-void solve() {
-
-}
-
-signed main() {
-    std::ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    // std::freopen("", "r", stdin);
-    // std::freopen("", "w", stdout);
-
-    int t = 1;
-    // cin >> t;
-    while (t--) solve();
-    return 0;
-}
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+typedef tree<int, null_type, less_equal<>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
+// in ordered_multiset lower and upper bounds are swapped and erase by value doesn't work
