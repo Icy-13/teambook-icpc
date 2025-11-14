@@ -1,13 +1,6 @@
-#include <bits/stdc++.h>
-
-#include <iomanip>
-#include <unordered_set>
-
-using namespace std;
-
 namespace geometry {
 constexpr long double PI =
-    3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647l;
+    3.141592653589793238462643383279502884l;
 constexpr long double precision = 1e-9;
 
 template <typename T>
@@ -21,7 +14,7 @@ struct Point {
 
     Point() noexcept : x(0), y(0) {}
 
-    Point(T x, T y) noexcept(std::is_nothrow_copy_constructible_v<T>)
+    Point(T x, T y)
         : x(x), y(y) {}
 
     template <typename U>
@@ -223,20 +216,20 @@ bool isIntersect(const Segment<T>& lhs, const Segment<T>& rhs) {
         return contains(lhs, rhs.first) || contains(lhs, rhs.second);
     }
     {
-        auto dir1 = lhs.second - lhs.first;
-        auto leg1 = rhs.first - lhs.first;
-        auto leg2 = rhs.second - lhs.first;
-        if (getSign(dir1 % leg1) * getSign(dir1 % leg2) > 0) {
-            return false;
-        }
+    auto dir1 = lhs.second - lhs.first;
+    auto leg1 = rhs.first - lhs.first;
+    auto leg2 = rhs.second - lhs.first;
+    if (getSign(dir1 % leg1) * getSign(dir1 % leg2) > 0) {
+        return false;
+    }
     }
     {
-        auto dir1 = rhs.second - rhs.first;
-        auto leg1 = lhs.first - rhs.first;
-        auto leg2 = lhs.second - rhs.first;
-        if (getSign(dir1 % leg1) * getSign(dir1 % leg2) > 0) {
-            return false;
-        }
+    auto dir1 = rhs.second - rhs.first;
+    auto leg1 = lhs.first - rhs.first;
+    auto leg2 = lhs.second - rhs.first;
+    if (getSign(dir1 % leg1) * getSign(dir1 % leg2) > 0) {
+        return false;
+    }
     }
     return true;
 }
@@ -314,8 +307,9 @@ long double distance(const Segment<T>& lhs, const Segment<T>& rhs) {
     if (isIntersect(lhs, rhs)) {
         return 0;
     }
-    return min({distance(lhs.first, rhs), distance(lhs.second, rhs),
-                distance(rhs.first, lhs), distance(rhs.second, lhs)});
+    return min(
+        {distance(lhs.first, rhs), distance(lhs.second, rhs),
+         distance(rhs.first, lhs), distance(rhs.second, lhs)});
 }
 
 template <typename T>
@@ -353,8 +347,10 @@ long double distance(const Segment<T>& seg, const Ray<T>& ray) {
     if (isIntersect(seg, ray)) {
         return 0;
     }
-    return min(min(distance(seg.first, ray), distance(seg.second, ray)),
-               distance(ray.begin, seg));
+    return min(
+        min(distance(seg.first, ray),
+            distance(seg.second, ray)),
+        distance(ray.begin, seg));
 }
 
 template <typename T>
@@ -410,8 +406,9 @@ bool insideAngle(const Point<T>& o, const Point<T>& dir1, const Point<T>& dir2,
 }
 
 template <typename T>
-variant<monostate, Point<T>, Line<T>> intersection(const Line<T>& line1,
-                                                   const Line<T>& line2) {
+variant<monostate, Point<T>, Line<T>>
+intersection(const Line<T>& line1,
+             const Line<T>& line2) {
     if (!isIntersect(line1, line2)) {
         return {};
     }
@@ -430,109 +427,111 @@ variant<monostate, Point<T>, Line<T>> intersection(const Line<T>& line1,
 
 template <typename T>
 class ConvexHull {
-    using point_type = Point<T>;
+using point_type = Point<T>;
 
- private:
-    std::vector<point_type> points_;
+private:
+std::vector<point_type> points_;
 
-    ConvexHull(const std::vector<point_type>& points) : points_(points) {}
-    ConvexHull(std::vector<point_type>&& points) : points_(std::move(points)) {}
+ConvexHull(const std::vector<point_type>& points) : points_(points) {}
+ConvexHull(std::vector<point_type>&& points) : points_(std::move(points)) {}
 
- public:
-    ConvexHull() = delete;
-    ConvexHull(const ConvexHull&) = default;
-    ConvexHull(ConvexHull&&) = default;
-    ConvexHull& operator=(const ConvexHull&) = default;
-    ConvexHull& operator=(ConvexHull&&) = default;
+public:
+ConvexHull() = delete;
+ConvexHull(const ConvexHull&) = default;
+ConvexHull(ConvexHull&&) = default;
+ConvexHull& operator=(const ConvexHull&) = default;
+ConvexHull& operator=(ConvexHull&&) = default;
 
-    const std::vector<point_type>& GetPoints() const { return points_; }
+const std::vector<point_type>& GetPoints() const { return points_; }
 
-    long double Area() const {
-        auto p = points_.front();
+long double Area() const {
+    auto p = points_.front();
 
-        T area = 0;
+    T area = 0;
 
-        for (size_t i = 1; i + 1 < points_.size(); ++i) {
-            area += (points_[i] - p) % (points_[i + 1] - p);
-        }
-
-        return fabsl(static_cast<long double>(area)) / 2;
+    for (size_t i = 1; i + 1 < points_.size(); ++i) {
+        area += (points_[i] - p) % (points_[i + 1] - p);
     }
 
-    static ConvexHull Jarvis(const std::vector<point_type>& points) {
-        if (points.empty()) {
-            return ConvexHull(points);
+    return fabsl(static_cast<long double>(area)) / 2;
+}
+
+static ConvexHull Jarvis(const std::vector<point_type>& points) {
+    if (points.empty()) {
+        return ConvexHull(points);
+    }
+    auto current_point = points.front();
+    for (const auto& p : points) {
+        if (p.x < current_point.x ||
+            p.x == current_point.x && p.y < current_point.y) {
+            current_point = p;
         }
-        auto current_point = points.front();
+    }
+
+    std::vector<point_type> hull{current_point};
+    while (true) {
         for (const auto& p : points) {
-            if (p.x < current_point.x ||
-                p.x == current_point.x && p.y < current_point.y) {
+            if (current_point == hull.back() && p != hull.back()) {
+                current_point = p;
+                continue;
+            }
+            int sign =
+            getSign((current_point - hull.back()) % (p - hull.back()));
+            if (sign < 0 ||
+                sign == 0 &&
+                    len2(current_point - hull.back()) <
+                    len2(p - hull.back())) {
                 current_point = p;
             }
         }
+        if (current_point == hull.front()) {
+            break;
+        }
+        hull.push_back(current_point);
+    }
+    return ConvexHull(std::move(hull));
+}
 
-        std::vector<point_type> hull{current_point};
-        while (true) {
-            for (const auto& p : points) {
-                if (current_point == hull.back() && p != hull.back()) {
-                    current_point = p;
-                    continue;
-                }
-                int sign =
-                    getSign((current_point - hull.back()) % (p - hull.back()));
-                if (sign < 0 || sign == 0 && len2(current_point - hull.back()) <
-                                                 len2(p - hull.back())) {
-                    current_point = p;
-                }
-            }
-            if (current_point == hull.front()) {
+static ConvexHull Graham(std::vector<point_type> points) {
+    if (points.empty()) {
+        return ConvexHull(points);
+    }
+    auto current_point = points.front();
+    for (const auto& p : points) {
+        if (p.x < current_point.x ||
+            (p.x == current_point.x && p.y < current_point.y)) {
+            current_point = p;
+        }
+    }
+
+    sort(points.begin(), points.end(),
+            [&](const point_type& lhs, const point_type& rhs) {
+                auto dir1 = lhs - current_point;
+                auto dir2 = rhs - current_point;
+                int sign = getSign(dir1 % dir2);
+                return sign > 0 || (sign == 0 && len2(dir1) < len2(dir2));
+            });
+
+    vector<point_type> hull;
+
+    for (const auto& p : points) {
+        while (hull.size() >= 2) {
+            auto dir1 = hull.back() - hull[hull.size() - 2];
+            auto dir2 = p - hull[hull.size() - 2];
+            auto sign = getSign(dir1 % dir2);
+            if (sign < 0 || (sign == 0 && len2(dir1) <= len2(dir2))) {
+                hull.pop_back();
+            } else {
                 break;
             }
-            hull.push_back(current_point);
         }
-        return ConvexHull(std::move(hull));
+        if (hull.empty() || p != hull.back()) {
+            hull.push_back(p);
+        }
     }
 
-    static ConvexHull Graham(std::vector<point_type> points) {
-        if (points.empty()) {
-            return ConvexHull(points);
-        }
-        auto current_point = points.front();
-        for (const auto& p : points) {
-            if (p.x < current_point.x ||
-                (p.x == current_point.x && p.y < current_point.y)) {
-                current_point = p;
-            }
-        }
-
-        sort(points.begin(), points.end(),
-             [&](const point_type& lhs, const point_type& rhs) {
-                 auto dir1 = lhs - current_point;
-                 auto dir2 = rhs - current_point;
-                 int sign = getSign(dir1 % dir2);
-                 return sign > 0 || (sign == 0 && len2(dir1) < len2(dir2));
-             });
-
-        vector<point_type> hull;
-
-        for (const auto& p : points) {
-            while (hull.size() >= 2) {
-                auto dir1 = hull.back() - hull[hull.size() - 2];
-                auto dir2 = p - hull[hull.size() - 2];
-                auto sign = getSign(dir1 % dir2);
-                if (sign < 0 || (sign == 0 && len2(dir1) <= len2(dir2))) {
-                    hull.pop_back();
-                } else {
-                    break;
-                }
-            }
-            if (hull.empty() || p != hull.back()) {
-                hull.push_back(p);
-            }
-        }
-
-        return ConvexHull(std::move(hull));
-    }
+    return ConvexHull(std::move(hull));
+}
 };
 
 using point = Point<long double>;
