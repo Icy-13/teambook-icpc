@@ -119,7 +119,7 @@
 
     \item \textbf{Известные неравенства.}
     \begin{enumerate}
-        \item \textbf{Неравенство Коши--Буняковского--Шварца (CBS):}
+        \item \textbf{КБШ:}
         \[
             \left(\sum_{i=1}^{n} a_i b_i\right)^2 \leq \left(\sum_{i=1}^{n} a_i^2\right)\left(\sum_{i=1}^{n} b_i^2\right)
         \]
@@ -127,7 +127,7 @@
         
         Форма через скалярное произведение: $|\langle \vec{a}, \vec{b} \rangle|^2 \leq \langle \vec{a}, \vec{a} \rangle \cdot \langle \vec{b}, \vec{b} \rangle$ или $|\langle \vec{a}, \vec{b} \rangle| \leq \|\vec{a}\| \cdot \|\vec{b}\|$
         
-        \item \textbf{Неравенство о средних:} для $a_i > 0$:
+        \item \textbf{О средних:} для $a_i > 0$:
         \[
             \text{QM} \geq \text{AM} \geq \text{GM} \geq \text{HM}
         \]
@@ -140,38 +140,38 @@
         \end{align*}
         Равенство в любом из них $\Leftrightarrow$ все $a_i$ равны.
         
-        \item \textbf{Неравенство Гёльдера:} для $p, q > 1$ с $\frac{1}{p} + \frac{1}{q} = 1$:
+        \item \textbf{Гёльдер:} для $p, q > 1$ с $\frac{1}{p} + \frac{1}{q} = 1$:
         \[
             \sum_{i=1}^{n} |a_i b_i| \leq \left(\sum_{i=1}^{n} |a_i|^p\right)^{1/p} \left(\sum_{i=1}^{n} |b_i|^q\right)^{1/q}
         \]
         
-        \item \textbf{Неравенство Минковского:} для $p \geq 1$:
+        \item \textbf{Минковский:} для $p \geq 1$:
         \[
             \left(\sum_{i=1}^{n} |a_i + b_i|^p\right)^{1/p} \leq \left(\sum_{i=1}^{n} |a_i|^p\right)^{1/p} + \left(\sum_{i=1}^{n} |b_i|^p\right)^{1/p}
         \]
         
-        \item \textbf{Неравенство Йенсена:} если $f$ выпуклая функция, то:
+        \item \textbf{Йенсен:} если $f$ выпуклая функция, то:
         \[
             f\left(\frac{x_1 + x_2 + \cdots + x_n}{n}\right) \leq \frac{f(x_1) + f(x_2) + \cdots + f(x_n)}{n}
         \]
         
         
-        \item \textbf{Неравенство Бернулли:} для $x > -1$ и $n \in \mathbb{N}$:
+        \item \textbf{Бернулли:} для $x > -1$ и $n \in \mathbb{N}$:
         \[
             (1 + x)^n \geq 1 + nx
         \]
         
-        \item \textbf{Неравенство Маркова:} для неотрицательной с.в. $X$ и $a > 0$:
+        \item \textbf{Марков:} для неотрицательной с.в. $X$ и $a > 0$:
         \[
             P(X \geq a) \leq \frac{E[X]}{a}
         \]
         
-        \item \textbf{Неравенство Чебышёва:} для с.в. $X$ с $E[X] = \mu$, $\text{Var}(X) = \sigma^2$:
+        \item \textbf{Чебышёв:} с.в. $X$ с $E[X] = \mu$, $\text{Var}(X) = \sigma^2$:
         \[
             P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2} \quad \text{или} \quad P(|X - \mu| \geq \varepsilon) \leq \frac{\sigma^2}{\varepsilon^2}
         \]
         
-        \item \textbf{Неравенство Чернова:} для $X = \sum_{i=1}^n X_i$, где $X_i$ независимы, $X_i \in \{0,1\}$, $\mu = E[X]$:
+        \item \textbf{Чернова:} для $X = \sum_{i=1}^n X_i$, где $X_i$ независимы, $X_i \in \{0,1\}$, $\mu = E[X]$:
         \[
             P(X \geq (1+\delta)\mu) \leq e^{-\frac{\delta^2 \mu}{3}}, \quad \delta > 0
         \]
@@ -179,12 +179,12 @@
             P(X \leq (1-\delta)\mu) \leq e^{-\frac{\delta^2 \mu}{2}}, \quad 0 < \delta < 1
         \]
         
-        \item \textbf{Неравенство Йенсена (вероятностная форма):} если $f$ выпуклая:
+        \item \textbf{Йенсен} если $f$ выпуклая:
         \[
             f(E[X]) \leq E[f(X)]
         \]
         
-        \item \textbf{Неравенство Коши--Шварца (для с.в.):}
+        \item \textbf{КБШ (для с.в.):}
         \[
             |E[XY]|^2 \leq E[X^2] \cdot E[Y^2]
         \]
