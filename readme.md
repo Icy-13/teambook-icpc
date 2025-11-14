@@ -1,6 +1,8 @@
 # А где пдфка то???
 
-Пдфку можно забрать в action, который запускается после каждого пуша:
+Запуск Action: Actions -> Build Latex Document -> Run workflow
+
+Где найти пдфку:
 
 Actions -> выбираем run -> artifacts -> скачиваем zip и распаковываем
 
