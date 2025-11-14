@@ -22,3 +22,10 @@ void dfs(int v, int p_edge, int d) {
         cutpoints.emplace(v);
     }
 }
+
+int centroid (int v, int n) { // n=g.size()
+    for (int u : g[v])
+        if (size[u] > n/2)
+            return centroid(u, n);
+    return v;
+}
