@@ -1,19 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <set>
-#include <map>
-#include <algorithm>
-#include <string>
-#include <cmath>
-#include <iomanip>
-#include <list>
-#include <numeric>
-
-using namespace std;
-using ll = long long;
-using ld = long double;
-using pii = pair<int, int>;
-
 ll subsolve(vector<int>& a, vector<int>& b, int p, int k, int from, int to) {
     ll ans = 0;
     k -= (p - from) + (to - from - 1) + (to - p - 1);
@@ -37,7 +21,6 @@ ll subsolve(vector<int>& a, vector<int>& b, int p, int k, int from, int to) {
             r = m;
         }
     }
-
     ll total = 0;
     for (int i = from; i < to; ++i) {
         if (a[i] - l < 0) {
@@ -45,7 +28,6 @@ ll subsolve(vector<int>& a, vector<int>& b, int p, int k, int from, int to) {
         }
         total += (a[i] - l) / b[i] + 1;
     }
-
     for (int i = from ; i < to; ++i) {
         if (a[i] - l < 0) {
             continue;
@@ -72,16 +54,4 @@ void solve() {
     }
 
     cout << ans << endl;
-}
-
-int main() {
-    std::ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    int t = 1;
-
-    // cin >> t;
-    while (t--) {
-        solve();
-    }
 }
