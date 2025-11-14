@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 // #pragma comment(linker, "/STACK:16777216")
 // #pragma GCC optimize("O3,unroll-loops")
-// #pragma GCC target("avx2,sse4,fma,bmi,bmi2,popcnt,lzcnt,abm")
+// #pragma GCC target("avx2,sse4.2,fma,bmi,bmi2,lzcnt,popcnt,tune=skylake")
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
