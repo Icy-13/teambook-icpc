@@ -117,4 +117,149 @@
     \item \[ gcd(F_m, F_n) = F_{gcd(m, n)} ~~ \sum_{d|n} \frac{\mu(d)^2}{\phi(d)} = \frac{n}{\phi(n)}\]
     \item mex(a[l:r]) = min(mex(a[0:r]), mex(a[l:n]))
 
+    \item \textbf{Известные неравенства.}
+    \begin{enumerate}
+        \item \textbf{Неравенство Коши--Буняковского--Шварца (CBS):}
+        \[
+            \left(\sum_{i=1}^{n} a_i b_i\right)^2 \leq \left(\sum_{i=1}^{n} a_i^2\right)\left(\sum_{i=1}^{n} b_i^2\right)
+        \]
+        Равенство $\Leftrightarrow$ векторы коллинеарны.
+        
+        Форма через скалярное произведение: $|\langle \vec{a}, \vec{b} \rangle|^2 \leq \langle \vec{a}, \vec{a} \rangle \cdot \langle \vec{b}, \vec{b} \rangle$ или $|\langle \vec{a}, \vec{b} \rangle| \leq \|\vec{a}\| \cdot \|\vec{b}\|$
+        
+        \item \textbf{Неравенство о средних:} для $a_i > 0$:
+        \[
+            \text{QM} \geq \text{AM} \geq \text{GM} \geq \text{HM}
+        \]
+        где
+        \begin{align*}
+            \text{QM} &= \sqrt{\frac{a_1^2 + a_2^2 + \cdots + a_n^2}{n}} \\
+            \text{AM} &= \frac{a_1 + a_2 + \cdots + a_n}{n} \\
+            \text{GM} &= \sqrt[n]{a_1 a_2 \cdots a_n} \\
+            \text{HM} &= \frac{n}{\frac{1}{a_1} + \frac{1}{a_2} + \cdots + \frac{1}{a_n}}
+        \end{align*}
+        Равенство в любом из них $\Leftrightarrow$ все $a_i$ равны.
+        
+        \item \textbf{Неравенство Гёльдера:} для $p, q > 1$ с $\frac{1}{p} + \frac{1}{q} = 1$:
+        \[
+            \sum_{i=1}^{n} |a_i b_i| \leq \left(\sum_{i=1}^{n} |a_i|^p\right)^{1/p} \left(\sum_{i=1}^{n} |b_i|^q\right)^{1/q}
+        \]
+        
+        \item \textbf{Неравенство Минковского:} для $p \geq 1$:
+        \[
+            \left(\sum_{i=1}^{n} |a_i + b_i|^p\right)^{1/p} \leq \left(\sum_{i=1}^{n} |a_i|^p\right)^{1/p} + \left(\sum_{i=1}^{n} |b_i|^p\right)^{1/p}
+        \]
+        
+        \item \textbf{Неравенство Йенсена:} если $f$ выпуклая функция, то:
+        \[
+            f\left(\frac{x_1 + x_2 + \cdots + x_n}{n}\right) \leq \frac{f(x_1) + f(x_2) + \cdots + f(x_n)}{n}
+        \]
+        
+        
+        \item \textbf{Неравенство Бернулли:} для $x > -1$ и $n \in \mathbb{N}$:
+        \[
+            (1 + x)^n \geq 1 + nx
+        \]
+        
+        \item \textbf{Неравенство Маркова:} для неотрицательной с.в. $X$ и $a > 0$:
+        \[
+            P(X \geq a) \leq \frac{E[X]}{a}
+        \]
+        
+        \item \textbf{Неравенство Чебышёва:} для с.в. $X$ с $E[X] = \mu$, $\text{Var}(X) = \sigma^2$:
+        \[
+            P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2} \quad \text{или} \quad P(|X - \mu| \geq \varepsilon) \leq \frac{\sigma^2}{\varepsilon^2}
+        \]
+        
+        \item \textbf{Неравенство Чернова:} для $X = \sum_{i=1}^n X_i$, где $X_i$ независимы, $X_i \in \{0,1\}$, $\mu = E[X]$:
+        \[
+            P(X \geq (1+\delta)\mu) \leq e^{-\frac{\delta^2 \mu}{3}}, \quad \delta > 0
+        \]
+        \[
+            P(X \leq (1-\delta)\mu) \leq e^{-\frac{\delta^2 \mu}{2}}, \quad 0 < \delta < 1
+        \]
+        
+        \item \textbf{Неравенство Йенсена (вероятностная форма):} если $f$ выпуклая:
+        \[
+            f(E[X]) \leq E[f(X)]
+        \]
+        
+        \item \textbf{Неравенство Коши--Шварца (для с.в.):}
+        \[
+            |E[XY]|^2 \leq E[X^2] \cdot E[Y^2]
+        \]
+        Следствие: $|\text{Cov}(X,Y)|^2 \leq \text{Var}(X) \cdot \text{Var}(Y)$
+    \end{enumerate}
+
+    \item \textbf{Таблица производных.}
+    \begin{align*}
+        (a^x)' &= a^x \ln a & (e^x)' &= e^x \\
+        (\log_a x)' &= \frac{1}{x \ln a} & (\sin x)' &= \cos x \\
+        (\cos x)' &= -\sin x & (\tan x)' &= \frac{1}{\cos^2 x} \\
+        (\cot x)' &= -\frac{1}{\sin^2 x} & (\arcsin x)' &= \frac{1}{\sqrt{1-x^2}} \\
+        (\arccos x)' &= -\frac{1}{\sqrt{1-x^2}} & (\arctan x)' &= \frac{1}{1+x^2} \\
+        (\text{arccot}\, x)' &= -\frac{1}{1+x^2}
+    \end{align*}
+
+    \item \textbf{Таблица интегралов.}
+    {\small
+    \begin{align*}
+        \int x^n dx &= \frac{x^{n+1}}{n+1},\, n \neq -1 & 
+        \int \frac{dx}{x} &= \ln|x| \\
+        \int e^x dx &= e^x & 
+        \int a^x dx &= \frac{a^x}{\ln a} \\
+        \int \sin x dx &= -\cos x & 
+        \int \cos x dx &= \sin x \\
+        \int \frac{dx}{\cos^2 x} &= \tan x & 
+        \int \frac{dx}{\sin^2 x} &= -\cot x \\
+        \int \frac{dx}{1+x^2} &= \arctan x & 
+        \int \frac{dx}{\sqrt{1-x^2}} &= \arcsin x \\
+        \int \frac{dx}{x^2+a^2} &= \frac{1}{a}\arctan\frac{x}{a} & 
+        \int \frac{dx}{\sqrt{a^2-x^2}} &= \arcsin\frac{x}{a} \\
+        \int \frac{dx}{\sqrt{x^2 \pm a^2}} &= \ln|x + \sqrt{x^2 \pm a^2}| &
+        \int \tan x dx &= -\ln|\cos x|
+    \end{align*}
+    }
+
+    \item \textbf{Сложные интегралы.}
+    {\small
+    \begin{align*}
+        \int \ln x dx &= x\ln x - x \\
+        \int \frac{xdx}{\sqrt{x^2 \pm a^2}} &= \sqrt{x^2 \pm a^2} \\
+        \int \frac{dx}{x^2-a^2} &= \frac{1}{2a}\ln\left|\frac{x-a}{x+a}\right| \\
+        \int \frac{dx}{a^2-x^2} &= \frac{1}{2a}\ln\left|\frac{a+x}{a-x}\right| \\
+        \int \sqrt{a^2-x^2}\, dx &= \frac{x}{2}\sqrt{a^2-x^2} + \frac{a^2}{2}\arcsin\frac{x}{a} \\
+        \int \sqrt{x^2 \pm a^2}\, dx &= \frac{x}{2}\sqrt{x^2 \pm a^2} \pm \frac{a^2}{2}\ln|x + \sqrt{x^2 \pm a^2}| \\
+    \end{align*}
+    \vspace{-10mm}
+    }
+
+    \item \textbf{Тригонометрические тождества.}
+    {\small
+    \begin{align*}
+        1 + \tan^2 x &= \frac{1}{\cos^2 x} &
+        1 + \cot^2 x &= \frac{1}{\sin^2 x} \\
+        \sin 2x &= 2\sin x\cos x &
+        \cos 2x &= \cos^2 x - \sin^2 x \\
+        \cos 2x &= 2\cos^2 x - 1 &
+        \cos 2x &= 1 - 2\sin^2 x \\
+        \tan 2x &= \frac{2\tan x}{1-\tan^2 x} &
+        \sin^2 x &= \frac{1-\cos 2x}{2} \\
+        \cos^2 x &= \frac{1+\cos 2x}{2} \\
+    \end{align*}
+    \vspace{-15mm}
+    \begin{align*}
+        \sin(x \pm y) &= \sin x\cos y \pm \cos x\sin y \\
+        \cos(x \pm y) &= \cos x\cos y \mp \sin x\sin y \\
+        \tan(x \pm y) &= \frac{\tan x \pm \tan y}{1 \mp \tan x\tan y} \\
+        \sin x + \sin y &= 2\sin\frac{x+y}{2}\cos\frac{x-y}{2} \\
+        \sin x - \sin y &= 2\cos\frac{x+y}{2}\sin\frac{x-y}{2} \\
+        \cos x + \cos y &= 2\cos\frac{x+y}{2}\cos\frac{x-y}{2} \\
+        \cos x - \cos y &= -2\sin\frac{x+y}{2}\sin\frac{x-y}{2} \\
+        \sin x\sin y &= \frac{1}{2}[\cos(x-y)-\cos(x+y)] \\
+        \cos x\cos y &= \frac{1}{2}[\cos(x-y)+\cos(x+y)] \\
+        \sin x\cos y &= \frac{1}{2}[\sin(x+y)+\sin(x-y)]
+    \end{align*}
+    }
+
 \end{enumerate}
