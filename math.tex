@@ -116,6 +116,8 @@
 
     \item \[ gcd(F_m, F_n) = F_{gcd(m, n)} ~~ \sum_{d|n} \frac{\mu(d)^2}{\phi(d)} = \frac{n}{\phi(n)}\]
     \item mex(a[l:r]) = min(mex(a[0:r]), mex(a[l:n]))
+    \item \textbf{Алгоритм Мо:} посортим блоки запросов по левой границе, внутри блока по правой.
+    \item \textbf{3D Мо:} $t$=количество апдейтов до текущего запроса. Отсортируем в порядке $(\lfloor \frac{t}{n^{\frac{2}{3}}} \rfloor, \lfloor \frac{l}{n^{\frac{2}{3}}} \rfloor, r)$. $O(n^{\frac{5}{3}})$
 
     \item \textbf{Известные неравенства.}
     \begin{enumerate}
