@@ -107,4 +107,14 @@
     
     $g(n) = mex(\{g(n-2)\} \cup \{ g(i - 2) \oplus g(n-i-1) | 2 \le i \le n-1 \})$
 
+    \item \[ \sum_{k=0}^{n} \binom{n-k}{k} = Fib_{n+1} ~~~ \sum_{k=0}^{r} \binom{m}{k} \binom{n}{r-k} = \binom{m+n}{r}\]
+    \item \[ \sum_{i=r}^{n} \binom{i}{r} = \binom{n+1}{r+1} ~~~ \sum_{i=0}^n \binom{n}{i}^2 = \binom{2n}{n} \]
+    \item \textbf{Derangement} перестановка где все элементы не на оригинальной позиции $d(n) = (n-1) \cdot (d(n-1) + d(n-2)) ~~~ d(0) = 1, d(1) = 0$
+    \item \textbf{Теорема Лукаса} если $p$ простое, то $\frac{p^{\alpha}}{k} \equiv 0 (mod ~ p)$
+    
+    Если $p$ простое и $m, n \ge 0$, то $\frac{m}{n} \equiv \prod^{k}_{i=0} \frac{m_i}{n_i} (mod ~ p)$, где $m = m_k p^k + m_{k-1}p^{k-1} + ...$
+
+    \item \[ gcd(F_m, F_n) = F_{gcd(m, n)} ~~ \sum_{d|n} \frac{\mu(d)^2}{\phi(d)} = \frac{n}{\phi(n)}\]
+    \item mex(a[l:r]) = min(mex(a[0:r]), mex(a[l:n]))
+
 \end{enumerate}
