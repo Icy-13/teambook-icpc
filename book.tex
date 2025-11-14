@@ -9,9 +9,26 @@
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{lastpage}
+\usepackage{enumitem}
 
 \usepackage{xcolor} % для цветов
 \usepackage{amsmath, amssymb, amsthm} % для математических формул
+
+% Компактные списки
+\setlist[enumerate]{itemsep=1pt,parsep=0pt,topsep=2pt,partopsep=0pt}
+
+% Уменьшаем отступы вокруг математических формул
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{2pt}%
+  \setlength{\belowdisplayskip}{2pt}%
+  \setlength{\abovedisplayshortskip}{0pt}%
+  \setlength{\belowdisplayshortskip}{1pt}%
+}
+
+% Переопределяем align* для уменьшения отступов
+\makeatletter
+\g@addto@macro\align{\abovedisplayskip=2pt\belowdisplayskip=2pt}
+\makeatother
 
 \lstset{
   language=C++,
