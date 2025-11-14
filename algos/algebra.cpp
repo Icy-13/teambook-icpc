@@ -121,3 +121,26 @@ vector<int> multiply(vector<int> const& a, vector<int> const& b) {
     return fa;
 }
 
+// CRT
+struct Congruence {
+    long long a, m; // x = a (mod m)
+};
+
+long long chinese_remainder_theorem(vector<Congruence> const& congruences) {
+    // mods are coprime. Otherwise we either have one solution modulo lcm, or we don't have any
+    // transofrm (a, m) congruence to (a, p1^n1) .. (a, pm^nm) congr, where p's are prime
+    // if we have a contradiction, i.e. (1, 4) and (1, 2), then there's no sol, otherwise use default algo
+    long long M = 1;
+    for (auto const& congruence : congruences) {
+        M *= congruence.m;
+    }
+
+    long long solution = 0;
+    for (auto const& congruence : congruences) {
+        long long a_i = congruence.a;
+        long long M_i = M / congruence.m;
+        long long N_i = mod_inv(M_i, congruence.m);
+        solution = (solution + a_i * M_i % M * N_i) % M;
+    }
+    return solution;
+}
