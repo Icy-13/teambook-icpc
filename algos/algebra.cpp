@@ -1,3 +1,12 @@
+// enumerate all submasks
+for(int sub=mask;sub>0;sub=(sub-1)&mask);
+
+// enumerate C(k, n)
+for(int comb =(1<<k)-1;comb<1<<n;) {
+    int x=comb&-comb,y=comb+x;
+    comb=((comb&~y)/x>>1)|y;
+}
+
 int gcd(int a, int b, int& x, int& y) {
     x = 1, y = 0;
     int x1 = 0, y1 = 1, a1 = a, b1 = b;
