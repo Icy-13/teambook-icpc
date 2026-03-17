@@ -1,3 +1,32 @@
+// Find min (1, n) cut in undirected graph
+
+#include <bits/stdc++.h>
+// #pragma comment(linker, "/STACK:16777216")
+//#pragma GCC optimize("O3")
+//#pragma GCC target("avx2,sse4,fma,bmi,bmi2,popcnt,lzcnt,abm")
+
+using namespace std;
+
+using ll = long long;
+using ull = unsigned long long;
+using dbl = double;
+using ld = long double;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using pdd = pair<dbl, dbl>;
+using pld = pair<ld, ld>;
+
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+// using namespace __gnu_pbds;
+// typedef tree<int, null_type, less<>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+#define ft first
+#define sc second
+#define pb push_back
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+
 struct Dinic {
     struct edge {
         int a, b;
@@ -84,3 +113,57 @@ struct Dinic {
         return f;
     }
 };
+
+void solve() {
+    int n;
+    int m;
+    cin >> n >> m;
+    Dinic dinic(n);
+    for (int i = 0; i < m; i++) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        dinic.add_undirected_edge(--a, --b, c);
+    }
+    int flow = dinic.flow(0, n - 1);
+    vector<bool> used(n);
+    vector<int> scut;
+    auto collectS = [&](this auto &&self, const int v) -> void {
+        used[v] = true;
+        for (const auto id: dinic.g[v]) {
+            if (auto &edge = dinic.edges[id];
+                edge.c - edge.f > 0 && !used[edge.b]) {
+                self(edge.b);
+            }
+        }
+        scut.push_back(v);
+    };
+
+    collectS(0);
+    vector<int> ans;
+    for (auto v: scut) {
+        for (const auto id: dinic.g[v]) {
+            if (auto &edge = dinic.edges[id]; !used[edge.b]) {
+                ans.push_back(id / 2);
+            }
+        }
+    }
+    cout << ans.size() << " " << flow << "\n";
+    for (auto x: ans) cout << x + 1 << " ";
+    cout << "\n";
+}
+
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+#ifdef LOCAL
+    freopen("c.in", "r", stdin);
+    freopen("c.out", "w", stdout);
+#endif
+
+    int t = 1;
+    // cin >> t;
+    while (t--) {
+        solve();
+    }
+}
