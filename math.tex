@@ -127,10 +127,10 @@
     \item \textbf{Матожидание размера выпуклой оболочки на случайных точках:} $O(\log n)$ для плоскости, $O(n^{\frac{1}{3}})$ для окружности
     \item \textbf{Segment Tree Beats} Общая идея - усилим break condition и ослабим tag. Базовые ифы сохраняются.
     \begin{enumerate}
-        \item \%=, = на отрезке, get ;; break: maxvalue[node] < mod ;; tag: maxvalue[node]==minvalue[node]
-        \item min=, max=, += $\sum$, min, max, gcd ;; break: max <= x ;; tag: secondMax < x
-        \item $\sqrt{}$=, /=, +=, sum, min, max ;; break: default ;; tag: $max[v] - min[v] \le 1$ 
-        \item \&=, |=, max ;; break: default ;; tagAnd: ((and[v] $\oplus$ or[v]) \& $\sim$ x)==0 ;; tagOr: ((and[v] $\oplus$ or[v]) \& x)==0
+        \item \%=, = на отрезке, get ;; lognlogC ;; break: maxvalue[node] < mod ;; tag: maxvalue[node]==minvalue[node]
+        \item min=, max=, += $\sum$, min, max, (gcd) ;; logn ;; break: max <= x ;; tag: secondMax < x
+        \item $\sqrt{}$=, /=, +=, sum, min, max ;; lognlogC ;; break: default ;; tag: $max[v] - min[v] \le 1$ 
+        \item \&=, |=, max ;; lognlogC ;; break: default ;; tagAnd: ((and[v] $\oplus$ or[v]) \& $\sim$ x)==0 ;; tagOr: ((and[v] $\oplus$ or[v]) \& x)==0
     \end{enumerate}
 
     \item \textbf{Гипотеза Гольдбаха} любое \textbf{четное} число представимо в виде суммы двух простых
