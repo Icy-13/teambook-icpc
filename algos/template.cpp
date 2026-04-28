@@ -9,3 +9,13 @@ using namespace __gnu_pbds;
 typedef tree<int, null_type, less<>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 typedef tree<int, null_type, less_equal<>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
 // in ordered_multiset lower and upper bounds are swapped and erase by value doesn't work
+
+ostream& operator<<(ostream& out, const __int128_t& x) {
+    constexpr ll BASE = 1e18;
+    if (x < BASE) {
+        out << static_cast<ll>(x);
+        return out;
+    }
+    out << static_cast<ll>(x / BASE) << std::setw(18) << std::setfill('0') << static_cast<ll>(x % BASE) << std::setw(0);
+    return out;
+}
