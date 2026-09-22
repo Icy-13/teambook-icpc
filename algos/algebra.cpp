@@ -130,7 +130,6 @@ vector<int> multiply(vector<int> const& a, vector<int> const& b) {
     return fa;
 }
 
-// КТО
 long long chinese_remainder_theorem(vector<pll> const& congruences) {
     // mods are coprime. Otherwise we either have one solution modulo lcm, or we don't have any
     // transofrm (a, m) congruence to (a, p1^n1) .. (a, pm^nm) congr, where p's are prime
