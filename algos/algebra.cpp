@@ -7,6 +7,15 @@ for(int comb =(1<<k)-1;comb<1<<n;) {
     comb=((comb&~y)/x>>1)|y;
 }
 
+// enumerate C(k, n) in lexicographic order. Start with (1<<k)-1
+bool next_comb(int& c, int n) {
+    int m = c & ~(c >> 1) & (((1LL << n) - 1) >> 1);
+    if (!m) return false;
+    int i = 31 - __builtin_clz(m), k = __builtin_popcount(c >> i);
+    c = (c & ((1 << i) - 1)) | (((1 << k) - 1) << (i + 1));
+    return true;
+}
+
 int gcd(int a, int b, int& x, int& y) {
     x = 1, y = 0;
     int x1 = 0, y1 = 1, a1 = a, b1 = b;
